@@ -272,7 +272,7 @@ generateRoutineBtn.addEventListener("click", async () => {
   // show loading indicator while waiting for the Worker
   showLoading();
   try {
-    const reply = await sendToWorker(messages);
+    let reply = await sendToWorker(messages);
     appendChatMessage("assistant", reply);
     // save assistant reply in history
     chatHistory.push({ role: "user", content: userContent });
@@ -281,10 +281,7 @@ generateRoutineBtn.addEventListener("click", async () => {
   } finally {
     hideLoading();
   }
-  // save assistant reply in history
-  chatHistory.push({ role: "user", content: userContent });
-  chatHistory.push({ role: "assistant", content: reply });
-  localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+  // (history already saved inside try)
 });
 
 /* Chat follow-ups */
